@@ -22,7 +22,7 @@ require_once "helper/fungsi.php";
 <body class="login-page bg-login">
   <div class="login-box">
     <div style="color:#3c8dbc" class="login-logo">
-      <img style="margin-top:-12px" src="assets/img/logo-blue.png" alt="Logo" height="50"> <b>Apotek</b>
+      <img style="margin-top:-12px" src="assets/img/apklogo.png" alt="Logo" height="50"> <b>Apotek Enggal Waras</b>
     </div><!-- /.login-logo -->
     <?php if (isset($_GET['alert'])) : ?>
       <?php if ($_GET['alert'] == 1) : ?>

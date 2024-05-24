@@ -91,8 +91,8 @@ ob_start(); ?>
   <div class="wrapper">
     <header class="main-header">
       <a href="?module=beranda" class="logo">
-        <img style="margin-top:-15px;margin-right:5px" src="assets/img/logo-blue.png" alt="Logo">
-        <span style="font-size:30px">Apotek</span>
+        <!-- <img style="margin-top:-15px;margin-right:5px" src="assets/img/logo-blue.png" alt="Logo"> -->
+        <span style="font-size:15px">Enggal Waras</span>
       </a>
       <nav class="navbar navbar-static-top" role="navigation">
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
