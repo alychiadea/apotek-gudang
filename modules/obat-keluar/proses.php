@@ -1,6 +1,6 @@
 <?php
 
-require_once '../_init.php';
+require_once '../../_init.php';
 
 if ($_GET['act'] == 'insert') {
     if (isset($_POST['simpan'])) {

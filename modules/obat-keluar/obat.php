@@ -1,6 +1,6 @@
 <?php
 
-require_once '../_init.php';
+require_once '../../_init.php';
 
 if(isset($_POST['dataidobat'])) {
 	$kode_obat = $_POST['dataidobat'];

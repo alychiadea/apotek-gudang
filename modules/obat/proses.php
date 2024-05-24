@@ -1,6 +1,6 @@
 <?php
 
-require_once '../_init.php';
+require_once '../../_init.php';
 
 // fungsi untuk pengecekan status login user 
 // jika user belum login, alihkan ke halaman login dan tampilkan pesan = 1
