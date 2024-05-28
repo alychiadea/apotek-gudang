@@ -3,7 +3,7 @@
 require_once "../../_init.php";
 
 $hari_ini = date("Y-m-d");
-$list_obat = get_all_obat();
+$list_obat = get_all_obat_kosong();
 
 ?>
 <!DOCTYPE html>
@@ -18,7 +18,7 @@ $list_obat = get_all_obat();
 <body>
     <div><img src="../../assets/img/logo.jpg" width="50" height="50" alt=""></div>
     <div id="title">
-        <h4>LAPORAN STOK OBAT<br>APOTEK ENGGAL WARAS</h4>
+        <h4>LAPORAN STOK OBAT KOSONG<br>APOTEK ENGGAL WARAS</h4>
         <p><?= tgl_eng_to_ind($hari_ini) ?></p>
     </div>
     <div id="isi">
@@ -42,7 +42,7 @@ $list_obat = get_all_obat();
                         <td style='padding-left:5px;' width='180' height='13' align='left'><?= strtoupper($data['nama_obat']) ?></td>
                         <td style='padding-right:10px;' width='80' height='13' align='right'><?= format_angka($data['harga_beli']) ?></td>
                         <td style='padding-right:10px;' width='80' height='13' align='right' valign='middle'><?= format_angka($data['harga_jual']) ?></td>
-                        <td style='padding-right:10px;<?= $data['stok'] < 3 ? 'color:red;' : '' ?>' width='80' height='13' align='right' valign='middle'><?= format_angka($data['stok']) ?></td>
+                        <td style='padding-right:10px;' width='80' height='13' align='right' valign='middle'><?= format_angka($data['stok']) ?></td>
                         <td width='80' height='13' align='left' valign='middle'><?= strtoupper($data['satuan']) ?></td>
                     </tr>
                 <?php endforeach ?>

@@ -12,6 +12,7 @@ switch ($_GET['module']) {
   case 'form_obat_masuk': $content = 'obat-masuk/form'; break;
   case 'obat_keluar': $content = 'obat-keluar/view'; break;
   case 'form_obat_keluar': $content = 'obat-keluar/form'; break;
+  case 'lap_stok_kosong': $content = 'lap-stok-kosong/view'; break;
   case 'lap_stok': $content = 'lap-stok/view'; break;
   case 'lap_obat_masuk': $content = 'lap-obat-masuk/view'; break;
   case 'lap_obat_keluar': $content = 'lap-obat-keluar/view'; break;

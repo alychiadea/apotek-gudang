@@ -43,6 +43,19 @@ function get_all_obat()
     return $rows;
 }
 
+function get_all_obat_kosong()
+{
+    global $mysqli;
+    // fungsi query untuk menampilkan data dari tabel obat
+    $query = mysqli_query($mysqli, "SELECT kode_obat,nama_obat,harga_beli,harga_jual,satuan,stok FROM obat WHERE stok < 3 ORDER BY nama_obat ASC")
+        or die('Ada kesalahan pada query tampil Data Obat: ' . mysqli_error($mysqli));
+    $rows = [];
+    while ($row = mysqli_fetch_assoc($query)) {
+        $rows[] = $row;
+    }
+    return $rows;
+}
+
 function generate_kode_obat()
 {
     global $mysqli;

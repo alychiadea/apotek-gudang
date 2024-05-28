@@ -27,6 +27,7 @@ while ($row = mysqli_fetch_assoc($query)) {
 </head>
 
 <body>
+    <div><img src="../../assets/img/logo.jpg" width="50" height="50" alt=""></div>
     <div id="title">LAPORAN DATA OBAT KELUAR</div>
     <?php if ($tgl_awal == $tgl_akhir) : ?>
         <div id="title-tanggal">Tanggal <?= tgl_eng_to_ind($tgl_awal) ?></div>

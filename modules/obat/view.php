@@ -56,7 +56,7 @@
                   <td width='180'><?= $data['nama_obat'] ?></td>
                   <td width='100' align='right'><?= format_rupiah($data['harga_beli']) ?></td>
                   <td width='100' align='right'><?= format_rupiah($data['harga_jual']) ?></td>
-                  <td width='80' align='right'><?= format_angka($data['stok']) ?></td>
+                  <td width='80' align='right' <?= $data['stok'] < 3 ? 'class="red"' : '' ?>><?= format_angka($data['stok']) ?></td>
                   <td width='80' class='center'><?= $data['satuan'] ?></td>
                   <?php if ($_SESSION['hak_akses'] == 'Admin' || $_SESSION['hak_akses'] == 'Gudang') : ?>
                     <td class='center' width='80'>

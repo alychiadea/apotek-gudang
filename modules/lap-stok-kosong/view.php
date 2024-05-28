@@ -1,9 +1,9 @@
-<?php $data_obat = get_all_obat() ?>
+<?php $data_obat = get_all_obat_kosong() ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    <i class="fa fa-file-text-o icon-title"></i> Laporan Stok Obat
-    <a class="btn btn-primary btn-social pull-right" href="modules/lap-stok/cetak.php" target="_blank">
+    <i class="fa fa-file-text-o icon-title"></i> Laporan Stok Obat Kosong
+    <a class="btn btn-primary btn-social pull-right" href="modules/lap-stok-kosong/cetak.php" target="_blank">
       <i class="fa fa-print"></i> Cetak
     </a>
   </h1>
@@ -34,7 +34,7 @@
                   <td width='180'><?= $data['nama_obat'] ?></td>
                   <td width='100' class='right'><?= format_angka($data['harga_beli']) ?></td>
                   <td width='100' class='right'><?= format_angka($data['harga_jual']) ?></td>
-                  <td width='80' class='right <?= $data['stok'] < 3 ? 'red' : '' ?>'><?= format_angka($data['stok']) ?></td>
+                  <td width='80' class='right'><?= format_angka($data['stok']) ?></td>
                   <td width='80' class='center'><?= $data['satuan'] ?></td>
                 </tr>
               <?php endforeach ?>
