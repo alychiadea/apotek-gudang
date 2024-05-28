@@ -16,11 +16,18 @@ $list_obat = get_all_obat();
 </head>
 
 <body>
-    <div><img src="../../assets/img/logo.jpg" width="50" height="50" alt=""></div>
-    <div id="title">
-        <h4>LAPORAN STOK OBAT<br>APOTEK ENGGAL WARAS</h4>
-        <p><?= tgl_eng_to_ind($hari_ini) ?></p>
-    </div>
+    <table style="margin-bottom: 10px;">
+        <tr>
+            <td>
+                <img src="../../assets/img/logo.jpg" width="70" height="70" alt="">
+            </td>
+            <td class="title" style="text-align:left;padding-left:10px;">
+                <h4>LAPORAN STOK OBAT<br>APOTEK ENGGAL WARAS</h4>
+                <p>Per tanggal: <?= tgl_eng_to_ind($hari_ini) ?></p>
+                <p>Jl. Jendral Ahmad Yani No. 27, Talagawetan</p>
+            </td>
+        </tr>
+    </table>
     <div id="isi">
         <table class="table" width="100%" border="0.3" cellpadding="0" cellspacing="0">
             <thead style="background:#e8ecee">

@@ -27,13 +27,22 @@ while ($row = mysqli_fetch_assoc($query)) {
 </head>
 
 <body>
-    <div><img src="../../assets/img/logo.jpg" width="50" height="50" alt=""></div>
-    <div id="title">LAPORAN DATA OBAT MASUK</div>
-    <?php if ($tgl_awal == $tgl_akhir) : ?>
-        <div id="title-tanggal">Tanggal <?= tgl_eng_to_ind($tgl_awal) ?></div>
-    <?php else : ?>
-        <div id="title-tanggal">Tanggal <?= tgl_eng_to_ind($tgl_awal) ?> s.d. <?= tgl_eng_to_ind($tgl_akhir) ?></div>
-    <?php endif ?>
+    <table style="margin-bottom: 10px;">
+        <tr>
+            <td>
+                <img src="../../assets/img/logo.jpg" width="70" height="70" alt="">
+            </td>
+            <td class="title" style="text-align:left;padding-left:10px;">
+                <h4>LAPORAN DATA OBAT MASUK<br>APOTEK ENGGAL WARAS</h4>
+                <?php if ($tgl_awal == $tgl_akhir) : ?>
+                    <div>Tanggal: <?= tgl_eng_to_ind($tgl_awal) ?></div>
+                <?php else : ?>
+                    <div>Tanggal: <?= tgl_eng_to_ind($tgl_awal) ?> s.d. <?= tgl_eng_to_ind($tgl_akhir) ?></div>
+                <?php endif ?>
+                <p>Jl. Jendral Ahmad Yani No. 27, Talagawetan</p>
+            </td>
+        </tr>
+    </table>
     <div id="isi">
         <table class="table" width="100%" border="0.3" cellpadding="0" cellspacing="0">
             <thead style="background:#e8ecee">
@@ -50,13 +59,7 @@ while ($row = mysqli_fetch_assoc($query)) {
             <tbody>
                 <?php if (count($rows) == 0) : ?>
                     <tr>
-                        <td width='40' height='13' align='center' valign='middle'></td>
-                        <td width='120' height='13' align='center' valign='middle'></td>
-                        <td width='80' height='13' align='center' valign='middle'></td>
-                        <td width='80' height='13' align='center' valign='middle'></td>
-                        <td style='padding-left:5px;' width='155' height='13' valign='middle'></td>
-                        <td style='padding-right:10px;' width='100' height='13' align='right' valign='middle'></td>
-                        <td width='80' height='13' align='center' valign='middle'></td>
+                        <td colspan="7">Tidak ada data untuk ditampilkan.</td>
                     </tr>
                 <?php else : ?>
                     <?php foreach ($rows as $no => $data) : ?>
