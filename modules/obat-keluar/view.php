@@ -6,6 +6,8 @@ $query = mysqli_query($mysqli, "
     a.kode_transaksi,
     a.tanggal_keluar,
     a.kode_obat,
+    a.harga_beli,
+    a.harga_jual,
     a.jumlah_keluar,
     b.kode_obat,
     b.nama_obat,
@@ -62,6 +64,10 @@ while ($item = mysqli_fetch_assoc($query)) {
                 <th class="center">Nama Obat</th>
                 <th class="center">Jumlah Keluar</th>
                 <th class="center">Satuan</th>
+                <th class="center">Harga Beli</th>
+                <th class="center">Harga Jual</th>
+                <th class="center">Jml Harga Beli</th>
+                <th class="center">Jml Harga Jual</th>
                 <?php if ($_SESSION['hak_akses'] == 'Admin') : ?>
                   <th class="center">Aksi</th>
                 <?php endif ?>
@@ -78,6 +84,10 @@ while ($item = mysqli_fetch_assoc($query)) {
                   <td width='200'><?= $item['nama_obat'] ?></td>
                   <td width='100' align='right'><?= format_angka($item['jumlah_keluar']) ?></td>
                   <td width='80' class='center'><?= $item['satuan'] ?></td>
+                  <td width='100' align='right'><?= format_angka($item['harga_beli']) ?></td>
+                  <td width='100' align='right'><?= format_angka($item['harga_jual']) ?></td>
+                  <td width='100' align='right'><?= format_angka($item['harga_beli'] * $item['jumlah_keluar']) ?></td>
+                  <td width='100' align='right'><?= format_angka($item['harga_jual'] * $item['jumlah_keluar']) ?></td>
                   <?php if ($_SESSION['hak_akses'] == 'Admin') : ?>
                     <td class="center" width='30'>
                       <a data-toggle="tooltip" data-placement="top" title="Hapus" class="btn btn-danger btn-sm" href="modules/obat-keluar/proses.php?act=delete&kode_transaksi=<?= $item['kode_transaksi'] ?>" onclick="return confirm('Anda yakin ingin menghapus data obat keluar <?= $item['kode_transaksi'] ?> ?');">

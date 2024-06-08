@@ -7,7 +7,7 @@ $tgl_awal = date_from_input($_GET['tgl_awal']);
 $tgl_akhir = date_from_input($_GET['tgl_akhir']);
 
 // fungsi query untuk menampilkan data dari tabel obat keluar
-$query = mysqli_query($mysqli, "SELECT a.kode_transaksi,a.tanggal_keluar,a.kode_obat,a.jumlah_keluar,b.kode_obat,b.nama_obat,b.satuan
+$query = mysqli_query($mysqli, "SELECT a.kode_transaksi,a.tanggal_keluar,a.kode_obat,a.jumlah_keluar,a.harga_beli,a.harga_jual,b.kode_obat,b.nama_obat,b.satuan
         FROM obat_keluar as a INNER JOIN obat as b ON a.kode_obat=b.kode_obat
         WHERE a.tanggal_keluar BETWEEN '$tgl_awal' AND '$tgl_akhir'
         ORDER BY a.kode_transaksi ASC")
@@ -53,6 +53,10 @@ while ($row = mysqli_fetch_assoc($query)) {
                     <th height="20" align="center" valign="middle">KODE OBAT</th>
                     <th height="20" align="center" valign="middle">NAMA OBAT</th>
                     <th height="20" align="center" valign="middle">JUMLAH KELUAR</th>
+                    <th height="20" align="center" valign="middle">HARGA BELI</th>
+                    <th height="20" align="center" valign="middle">HARGA JUAL</th>
+                    <th height="20" align="center" valign="middle">JUMLAH HARGA BELI</th>
+                    <th height="20" align="center" valign="middle">JUMLAH HARGA JUAL</th>
                     <th height="20" align="center" valign="middle">SATUAN</th>
                 </tr>
             </thead>
@@ -62,6 +66,7 @@ while ($row = mysqli_fetch_assoc($query)) {
                         <td colspan="7">Tidak ada data untuk ditampilkan.</td>
                     </tr>
                 <?php else : ?>
+                    <?php $total_harga_beli = 0; $total_harga_jual = 0 ?>
                     <?php foreach ($rows as $no => $data) : ?>
                         <tr>
                             <td width='40' height='13' align='center' valign='middle'><?= $no + 1 ?></td>
@@ -71,10 +76,24 @@ while ($row = mysqli_fetch_assoc($query)) {
                             <td style='padding-left:5px;' width='155' height='13' valign='middle'><?= $data['nama_obat'] ?></td>
                             <td style='padding-right:10px;' width='100' height='13' align='right' valign='middle'><?= format_angka($data['jumlah_keluar']) ?></td>
                             <td width='80' height='13' align='center' valign='middle'><?= $data['satuan'] ?></td>
+                            <td style='padding-right:10px;' width='100' height='13' align='right' valign='middle'><?= format_angka($data['harga_beli']) ?></td>
+                            <td style='padding-right:10px;' width='100' height='13' align='right' valign='middle'><?= format_angka($data['harga_jual']) ?></td>
+                            <td style='padding-right:10px;' width='100' height='13' align='right' valign='middle'><?= format_angka($data['harga_beli'] * $data['jumlah_keluar']) ?></td>
+                            <td style='padding-right:10px;' width='100' height='13' align='right' valign='middle'><?= format_angka($data['harga_jual'] * $data['jumlah_keluar']) ?></td>
                         </tr>
+                        <?php $total_harga_beli += $data['harga_beli'] * $data['jumlah_keluar'] ?>
+                        <?php $total_harga_jual += $data['harga_jual'] * $data['jumlah_keluar'] ?>
                     <?php endforeach ?>
                 <?php endif ?>
             </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="9" align="right">Total</th>
+                    <th align="right"><?= format_angka($total_harga_beli) ?></th>
+                    <th align="right"><?= format_angka($total_harga_jual) ?></th>
+                </tr>
+            </tfoot>
+
         </table>
 
         <div id="footer-tanggal">
