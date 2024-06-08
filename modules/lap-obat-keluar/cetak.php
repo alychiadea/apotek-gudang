@@ -53,11 +53,11 @@ while ($row = mysqli_fetch_assoc($query)) {
                     <th height="20" align="center" valign="middle">KODE OBAT</th>
                     <th height="20" align="center" valign="middle">NAMA OBAT</th>
                     <th height="20" align="center" valign="middle">JUMLAH KELUAR</th>
+                    <th height="20" align="center" valign="middle">SATUAN</th>
                     <th height="20" align="center" valign="middle">HARGA BELI</th>
                     <th height="20" align="center" valign="middle">HARGA JUAL</th>
                     <th height="20" align="center" valign="middle">JUMLAH HARGA BELI</th>
                     <th height="20" align="center" valign="middle">JUMLAH HARGA JUAL</th>
-                    <th height="20" align="center" valign="middle">SATUAN</th>
                 </tr>
             </thead>
             <tbody>
@@ -88,7 +88,7 @@ while ($row = mysqli_fetch_assoc($query)) {
             </tbody>
             <tfoot>
                 <tr>
-                    <th colspan="9" align="right">Total</th>
+                    <th colspan="9" align="right">TOTAL</th>
                     <th align="right"><?= format_angka($total_harga_beli) ?></th>
                     <th align="right"><?= format_angka($total_harga_jual) ?></th>
                 </tr>

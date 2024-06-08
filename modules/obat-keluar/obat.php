@@ -6,7 +6,7 @@ if(isset($_POST['dataidobat'])) {
 	$kode_obat = $_POST['dataidobat'];
 
   // fungsi query untuk menampilkan data dari tabel obat
-  $query = mysqli_query($mysqli, "SELECT kode_obat,nama_obat,satuan,stok FROM obat WHERE kode_obat='$kode_obat'")
+  $query = mysqli_query($mysqli, "SELECT kode_obat,nama_obat,satuan,stok,harga_beli,harga_jual FROM obat WHERE kode_obat='$kode_obat'")
                                   or die('Ada kesalahan pada query tampil data obat: '.mysqli_error($mysqli));
 
   // tampilkan data

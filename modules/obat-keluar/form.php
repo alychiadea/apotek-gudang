@@ -1,40 +1,10 @@
-<script type="text/javascript">
-  function tampil_obat(input) {
-    var num = input.value;
-
-    $.post("modules/obat-keluar/obat.php", {
-      dataidobat: num,
-    }, function(response) {
-      $('#stok').html(response)
-
-      document.getElementById('jumlah_Keluar').focus();
-    });
-  }
-
-  function cek_jumlah_keluar(input) {
-    jml = document.formObatKeluar.jumlah_keluar.value;
-    var jumlah = eval(jml);
-    if (jumlah < 1) {
-      alert('Jumlah Keluar Tidak Boleh Nol !!');
-      input.value = input.value.substring(0, input.value.length - 1);
-    }
-  }
-
-  function hitung_total_stok() {
-    bil1 = document.formObatKeluar.stok.value;
-    bil2 = document.formObatKeluar.jumlah_keluar.value;
-
-    if (bil2 == "") {
-      var hasil = "";
-    } else {
-      var hasil = eval(bil1) - eval(bil2);
-    }
-
-    document.formObatKeluar.total_stok.value = (hasil);
-  }
-</script>
-
 <?php
+$query_obat = mysqli_query($mysqli, "SELECT * FROM obat ORDER BY nama_obat ASC") or die('Ada kesalahan pada query tampil obat: ' . mysqli_error($mysqli));
+$obat_by_codes = [];
+while ($data_obat = mysqli_fetch_object($query_obat)) {
+  $obat_by_codes[$data_obat->kode_obat] = $data_obat;
+}
+
 // fungsi untuk pengecekan tampilan form
 // jika form add data yang dipilih
 if ($_GET['form'] == 'add') { ?>
@@ -57,7 +27,7 @@ if ($_GET['form'] == 'add') { ?>
       <div class="col-md-12">
         <div class="box box-primary">
           <!-- form start -->
-          <form role="form" class="form-horizontal" action="modules/obat-keluar/proses.php?act=insert" method="POST" name="formObatKeluar">
+          <form role="form" id="form" class="form-horizontal" action="modules/obat-keluar/proses.php?act=insert" method="POST" name="formObatKeluar">
             <div class="box-body">
               <?php
               // fungsi untuk membuat kode transaksi
@@ -100,20 +70,16 @@ if ($_GET['form'] == 'add') { ?>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Obat</label>
                 <div class="col-sm-5">
-                  <select class="chosen-select" name="kode_obat" data-placeholder="-- Pilih Obat --" onchange="tampil_obat(this)" autocomplete="off" required>
+                  <select id="id_obat" class="chosen-select" name="kode_obat" data-placeholder="-- Pilih Obat --" autocomplete="off" required>
                     <option value=""></option>
-                    <?php
-                    $query_obat = mysqli_query($mysqli, "SELECT kode_obat, nama_obat FROM obat ORDER BY nama_obat ASC")
-                      or die('Ada kesalahan pada query tampil obat: ' . mysqli_error($mysqli));
-                    while ($data_obat = mysqli_fetch_assoc($query_obat)) {
-                      echo "<option value=\"$data_obat[kode_obat]\"> $data_obat[kode_obat] | $data_obat[nama_obat] </option>";
-                    }
-                    ?>
+                    <?php foreach ($obat_by_codes as $obat) : ?>
+                      <option value="<?= $obat->kode_obat ?>"><?= $obat->kode_obat . ' | ' . $obat->nama_obat ?></option>
+                    <?php endforeach ?>
                   </select>
                 </div>
               </div>
 
-              <span id='stok'>
+              <span>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Stok</label>
                   <div class="col-sm-5">
@@ -121,12 +87,23 @@ if ($_GET['form'] == 'add') { ?>
                   </div>
                 </div>
               </span>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Harga Beli</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" id="harga_beli" name="harga_beli" autocomplete="off" required readonly>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Harga Jual</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" id="harga_jual" name="harga_jual" autocomplete="off" required readonly>
+                </div>
+              </div>
 
               <div class="form-group">
                 <label class="col-sm-2 control-label">Jumlah Keluar</label>
                 <div class="col-sm-5">
-                  <input type="text" class="form-control" id="jumlah_keluar" name="jumlah_keluar" autocomplete="off"
-                    onKeyPress="return goodchars(event,'0123456789',this)" onkeyup="hitung_total_stok(this)&cek_jumlah_keluar(this)" required>
+                  <input type="text" class="form-control" id="jumlah_keluar" name="jumlah_keluar" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" required>
                 </div>
               </div>
 
@@ -155,3 +132,57 @@ if ($_GET['form'] == 'add') { ?>
 <?php
 }
 ?>
+<?php ob_start() ?>
+<script>
+  var obat_by_codes = <?= json_encode($obat_by_codes) ?>;
+
+  $(document).ready(function() {
+    let allowSubmit = false;
+
+    $('#form').submit(function(e) {
+      if (!allowSubmit) {
+        alert('stok tidak boleh negatif');
+        $('#jumlah_keluar').focus();
+        $('#jumlah_keluar').select();
+        e.preventDefault();
+        return false;
+      }
+
+      return true;
+    });
+
+    function update_total_stok() {
+      let stok_baru = $('#stok').val() - $('#jumlah_keluar').val();
+      $('#total_stok').val(stok_baru);
+
+      if (stok_baru < 0) {
+        allowSubmit = false;
+      } else {
+        allowSubmit = true;
+      }
+    }
+    $('#jumlah_keluar').keyup(function() {
+      update_total_stok();
+    });
+    $('#id_obat').change(function() {
+      const kode = $(this).val()
+      let obat = obat_by_codes[kode];
+
+      if (!obat) {
+        $('#stok').val(0);
+        $('#total_stok').val(0);
+        $('#harga_beli').val(0);
+        $('#harga_jual').val(0);
+        allowSubmit = false;
+        // reset
+        return;
+      }
+
+      $('#stok').val(obat.stok);
+      $('#harga_beli').val(obat.harga_beli);
+      $('#harga_jual').val(obat.harga_jual);
+      update_total_stok();
+    });
+  });
+</script>
+<?php $footscript = ob_get_clean() ?>

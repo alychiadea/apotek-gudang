@@ -16,10 +16,13 @@ if ($_GET['act'] == 'insert') {
         $total_stok      = mysqli_real_escape_string($mysqli, trim($_POST['total_stok']));
 
         $created_user    = $_SESSION['id_user'];
-
+        $obat = mysqli_query($mysqli, "select * from obat where kode_obat='$kode_obat'")->fetch_object();
+        $harga_beli = $obat->harga_beli;
+        $harga_jual = $obat->harga_jual;
+        
         // perintah query untuk menyimpan data ke tabel obat masuk
-        $query = mysqli_query($mysqli, "INSERT INTO obat_masuk(kode_transaksi,tanggal_masuk,kode_obat,jumlah_masuk,created_user) 
-                                            VALUES('$kode_transaksi','$tanggal_masuk','$kode_obat','$jumlah_masuk','$created_user')")
+        $query = mysqli_query($mysqli, "INSERT INTO obat_masuk(kode_transaksi,tanggal_masuk,kode_obat,jumlah_masuk,harga_beli,harga_jual,created_user) 
+                                            VALUES('$kode_transaksi','$tanggal_masuk','$kode_obat','$jumlah_masuk','$harga_beli','$harga_jual','$created_user')")
             or die('Ada kesalahan pada query insert : ' . mysqli_error($mysqli));
 
         // cek query

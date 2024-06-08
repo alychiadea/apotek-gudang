@@ -1,9 +1,9 @@
-<?php  
+<?php
 // fungsi untuk pengecekan tampilan form
 // jika form add data yang dipilih
-if ($_GET['form']=='add') { ?>
+if ($_GET['form'] == 'add') { ?>
   <!-- tampilkan form add data -->
-	<!-- Content Header (Page header) -->
+  <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
       <i class="fa fa-edit icon-title"></i> Input User
@@ -49,10 +49,8 @@ if ($_GET['form']=='add') { ?>
                 <label class="col-sm-2 control-label">Hak Akses</label>
                 <div class="col-sm-5">
                   <select class="form-control" name="hak_akses" required>
-                    <option value=""></option>
-                    <option value="Super Admin">Super Admin</option>
-                    <option value="Manajer">Manajer</option>
-                    <option value="Gudang">Gudang</option>
+                    <option value="Admin">Administrator</option>
+                    <option value="Owner">Pemilik</option>
                   </select>
                 </div>
               </div>
@@ -69,21 +67,21 @@ if ($_GET['form']=='add') { ?>
           </form>
         </div><!-- /.box -->
       </div><!--/.col -->
-    </div>   <!-- /.row -->
+    </div> <!-- /.row -->
   </section><!-- /.content -->
 <?php
 }
 
 // jika form edit data yang dipilih
-elseif ($_GET['form']=='edit') { 
-  	if (isset($_GET['id'])) {
-      // fungsi query untuk menampilkan data dari tabel user
-      $query = mysqli_query($mysqli, "SELECT * FROM users WHERE id_user='$_GET[id]'") 
-                                      or die('Ada kesalahan pada query tampil data user : '.mysqli_error($mysqli));
-      $data  = mysqli_fetch_assoc($query);
-  	}	
+elseif ($_GET['form'] == 'edit') {
+  if (isset($_GET['id'])) {
+    // fungsi query untuk menampilkan data dari tabel user
+    $query = mysqli_query($mysqli, "SELECT * FROM users WHERE id_user='$_GET[id]'")
+      or die('Ada kesalahan pada query tampil data user : ' . mysqli_error($mysqli));
+    $data  = mysqli_fetch_assoc($query);
+  }
 ?>
-	<!-- tampilkan form edit data -->
+  <!-- tampilkan form edit data -->
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
@@ -134,7 +132,7 @@ elseif ($_GET['form']=='edit') {
                   <input type="email" class="form-control" name="email" autocomplete="off" value="<?= $data['email']; ?>">
                 </div>
               </div>
-            
+
               <div class="form-group">
                 <label class="col-sm-2 control-label">Telepon</label>
                 <div class="col-sm-5">
@@ -142,21 +140,20 @@ elseif ($_GET['form']=='edit') {
                 </div>
               </div>
 
-            <div class="form-group">
+              <div class="form-group">
                 <label class="col-sm-2 control-label">Foto</label>
                 <div class="col-sm-5">
                   <input type="file" name="foto">
-                  <br/>
-                <?php  
-                if ($data['foto']=="") { ?>
-                  <img style="border:1px solid #eaeaea;border-radius:5px;" src="images/user/user-default.png" width="128">
-                <?php
-                }
-                else { ?>
-                  <img style="border:1px solid #eaeaea;border-radius:5px;" src="images/user/<?= $data['foto']; ?>" width="128">
-                <?php
-                }
-                ?>
+                  <br />
+                  <?php
+                  if ($data['foto'] == "") { ?>
+                    <img style="border:1px solid #eaeaea;border-radius:5px;" src="images/user/user-default.png" width="128">
+                  <?php
+                  } else { ?>
+                    <img style="border:1px solid #eaeaea;border-radius:5px;" src="images/user/<?= $data['foto']; ?>" width="128">
+                  <?php
+                  }
+                  ?>
                 </div>
               </div>
 
@@ -164,10 +161,8 @@ elseif ($_GET['form']=='edit') {
                 <label class="col-sm-2 control-label">Hak Akses</label>
                 <div class="col-sm-5">
                   <select class="form-control" name="hak_akses" required>
-                    <option value="<?= $data['hak_akses']; ?>"><?= $data['hak_akses']; ?></option>
-                    <option value="Super Admin">Super Admin</option>
-                    <option value="Manajer">Manajer</option>
-                    <option value="Gudang">Gudang</option>
+                    <option value="Admin" <?= $data['hak_akses'] == 'Admin' ? 'selected' : '' ?>>Administrator</option>
+                    <option value="Owner" <?= $data['hak_akses'] == 'Owner' ? 'selected' : '' ?>>Pemilik</option>
                   </select>
                 </div>
               </div>
@@ -184,7 +179,7 @@ elseif ($_GET['form']=='edit') {
           </form>
         </div><!-- /.box -->
       </div><!--/.col -->
-    </div>   <!-- /.row -->
+    </div> <!-- /.row -->
   </section><!-- /.content -->
 <?php
 }

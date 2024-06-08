@@ -2,7 +2,7 @@
   <li class="<?= $_GET["module"] == "beranda" ? 'active' : '' ?>">
     <a href="?module=beranda"><i class="fa fa-home"></i> Beranda </a>
   </li>
-  <?php if ($_SESSION['hak_akses'] == 'Owner' || $_SESSION['hak_akses'] == 'Gudang' || $_SESSION['hak_akses'] == 'Admin') : ?>
+  <?php if ($_SESSION['hak_akses'] == 'Owner' || $_SESSION['hak_akses'] == 'Admin') : ?>
     <li class="<?= $_GET["module"] == "obat" || $_GET["module"] == "form_obat" ? 'active' : '' ?>">
       <a href="?module=obat"><i class="fa fa-th"></i> Data Obat </a>
     </li>

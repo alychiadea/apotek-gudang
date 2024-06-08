@@ -211,9 +211,12 @@ ob_start(); ?>
         "bAutoWidth": false
       });
     });
+
+    $('#jumlah_keluar').change(function() {
+      // update total stok
+    });
   </script>
-
+ <?= !empty($footscript) ? $footscript : '' ?>
 </body>
-
 </html>
 <?php echo ob_get_clean() ?>
